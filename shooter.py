@@ -22,6 +22,7 @@ class Shooter:
         while True:
             # main game loop
             self._check_events()
+            self.jet.update()
             self._update_screen()
         
     def _check_events(self):
@@ -30,11 +31,27 @@ class Shooter:
             if event.type == pygame.QUIT:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                self._check_keydow_events(event)
-    def _check_keydow_events(self, event):
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
+                
+    def _check_keydown_events(self, event):
         """check keyboard keydown events."""
         if event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_DOWN:
+            self.jet.moving_down = True
+        elif event.key == pygame.K_UP:
+            self.jet.moving_up = True
+            
+    
+    def _check_keyup_events(self, event):
+        """check keyboard keyup events"""
+        if event.key == pygame.K_DOWN:
+            self.jet.moving_down = False
+        elif event.key == pygame.K_UP:
+            self.jet.moving_up = False
+            
             
     def _update_screen(self):
         """update and flip screen to the latest frame created."""

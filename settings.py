@@ -6,3 +6,4 @@ class Settings:
         self.screen_width = 700
         self.screen_height = 1_000
         self.bg_color = (255, 255, 255)
+        self.jet_speed = 1.5
