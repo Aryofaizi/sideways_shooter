@@ -1,4 +1,5 @@
 import pygame, sys
+from settings import Settings
 
 
 class Shooter:
@@ -7,7 +8,10 @@ class Shooter:
     def __init__(self):
         """Initialize game screen."""
         pygame.init()
+        self.settings = Settings()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_width()
+        self.settings.screen_height = self.screen.get_height()
         
         
     def run_game(self):
@@ -31,7 +35,7 @@ class Shooter:
             
     def _update_screen(self):
         """update and flip screen to the latest frame created."""
-        self.screen.fill((255,255,255))
+        self.screen.fill(self.settings.bg_color)
         pygame.display.flip()
         
         
