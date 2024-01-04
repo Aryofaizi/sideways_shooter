@@ -18,8 +18,3 @@ class Enemy(Sprite):
         self.rect = self.image.get_rect()
         # set image position
         self.rect.topright = self.screen_rect.topright
-    
-    
-    def blit_me(self):
-        """draw enemy to the screen."""
-        self.image.blit(self.screen, self.rect)
