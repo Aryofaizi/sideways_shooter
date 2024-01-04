@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import Settings
 from jet import Jet
+from bullet import Bullet
 
 
 class Shooter:
@@ -13,6 +14,9 @@ class Shooter:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_width()
         self.settings.screen_height = self.screen.get_height()
+        
+        # bullet group
+        self.bullets = pygame.sprite.Group()
         
         # jet instance
         self.jet = Jet(self)
@@ -43,8 +47,32 @@ class Shooter:
             self.jet.moving_down = True
         elif event.key == pygame.K_UP:
             self.jet.moving_up = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
             
-    
+            
+    def _fire_bullet(self):
+        """create new bullet and add to new bullets group."""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+        
+    def _delete_old_bullet(self):
+        """get rid of """
+        for bullet in self.bullets.copy():
+            if bullet.pass_edge():
+                self.bullets.remove(bullet)
+            
+    def _update_bullets(self):
+        """update bullets position and count on screen."""
+        # bullets position 
+        self.bullets.update()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+            # get rid of old bullets that have disappeard.
+            self._delete_old_bullet()
+        
+            
     def _check_keyup_events(self, event):
         """check keyboard keyup events"""
         if event.key == pygame.K_DOWN:
@@ -57,6 +85,7 @@ class Shooter:
         """update and flip screen to the latest frame created."""
         self.screen.fill(self.settings.bg_color)
         self.jet.blit_me()
+        self._update_bullets()
         pygame.display.flip()
         
         
