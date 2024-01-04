@@ -2,6 +2,7 @@ import pygame, sys
 from settings import Settings
 from jet import Jet
 from bullet import Bullet
+from enemy import Enemy
 
 
 class Shooter:
@@ -17,9 +18,13 @@ class Shooter:
         
         # bullet group
         self.bullets = pygame.sprite.Group()
-        
         # jet instance
         self.jet = Jet(self)
+        
+        # enemy group
+        self.enemys = pygame.sprite.Group()
+        # enemy instance
+        self.enemy = Enemy(self)
         
     def run_game(self):
         """Method to run the game."""
@@ -86,6 +91,9 @@ class Shooter:
         self.screen.fill(self.settings.bg_color)
         self.jet.blit_me()
         self._update_bullets()
+        self.enemys.add(self.enemy)
+        self.enemys.draw(self.screen)
+            
         pygame.display.flip()
         
         
