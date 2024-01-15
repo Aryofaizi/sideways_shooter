@@ -78,6 +78,9 @@ class Shooter:
         self.bullets.update()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+            # check for anamy bullet that have hit enemies.
+            # if so get rid of the bullet and the enemy.
+            collisions = pygame.sprite.groupcollide(self.bullets, self.enemies, True, True)
             # get rid of old bullets that have disappeard.
             self._delete_old_bullet()
         
