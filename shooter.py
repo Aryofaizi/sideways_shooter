@@ -3,6 +3,7 @@ from settings import Settings
 from jet import Jet
 from bullet import Bullet
 from enemy import Enemy
+from random import random
 
 
 class Shooter:
@@ -22,17 +23,20 @@ class Shooter:
         self.jet = Jet(self)
         
         # enemy group
-        self.enemys = pygame.sprite.Group()
-        # enemy instance
-        self.enemy = Enemy(self)
+        self.enemies = pygame.sprite.Group()        
         
     def run_game(self):
         """Method to run the game."""
         while True:
             # main game loop
             self._check_events()
+            
+            # create enemies
+            self._create_enemy()    
+            
             self.jet.update()
             self._update_screen()
+            
         
     def _check_events(self):
         """check keyboard keydown and keyup events."""
@@ -84,15 +88,20 @@ class Shooter:
             self.jet.moving_down = False
         elif event.key == pygame.K_UP:
             self.jet.moving_up = False
+    
+    def _create_enemy(self):
+        if random() < self.settings.enemy_freqeuncy:
+            new_enemy = Enemy(self)
+            self.enemies.add(new_enemy)
             
-            
+                
     def _update_screen(self):
         """update and flip screen to the latest frame created."""
         self.screen.fill(self.settings.bg_color)
         self.jet.blit_me()
         self._update_bullets()
-        self.enemys.add(self.enemy)
-        self.enemys.draw(self.screen)
+        self.enemies.draw(self.screen)
+        self.enemies.update()
             
         pygame.display.flip()
         

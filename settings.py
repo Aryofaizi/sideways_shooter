@@ -12,3 +12,6 @@ class Settings:
         self.bullet_speed = 1.5
         self.bullet_color = (255, 0, 0)
         self.bullets_allowed = 3
+        # enemy position
+        self.enemy_freqeuncy = 0.001
+        self.enemy_speed = 0.5
