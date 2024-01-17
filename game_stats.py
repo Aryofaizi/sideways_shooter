@@ -6,6 +6,9 @@ class GameStats:
         self.settings = game.settings
         self.game_reset()
         
+        # game active flag
+        self.game_active = True
+        
     def game_reset(self):
         """resets game statistics."""
         self.jet_left = self.settings.jet_limit

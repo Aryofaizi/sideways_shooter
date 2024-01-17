@@ -34,11 +34,10 @@ class Shooter:
         while True:
             # main game loop
             self._check_events()
-            
             # create enemies
             self._create_enemy()    
-            
             self.jet.update()
+            
             self._update_screen()
             
         
@@ -105,30 +104,33 @@ class Shooter:
     def _check_hit(self):
         """check if jet or any of enemies collide"""
         if pygame.sprite.spritecollideany(self.jet, self.enemies):
-            # decrement 
-            self.stats.jet_left -=1
-            
-            # remove remaining bullets and enemies
-            self.enemies.empty()
-            self.bullets.empty()
-            
-            # reposition the jet 
-            self.jet.reposition()
-            
-            # pause 
-            sleep(0.5)
+            if self.stats.jet_left > 0:
+                # decrement 
+                self.stats.jet_left -=1
+                
+                # remove remaining bullets and enemies
+                self.enemies.empty()
+                self.bullets.empty()
+                
+                # reposition the jet 
+                self.jet.reposition()
+                
+                # pause 
+                sleep(0.5)
+            else:
+                self.stats.game_active = False
             
             
                 
     def _update_screen(self):
         """update and flip screen to the latest frame created."""
         self.screen.fill(self.settings.bg_color)
-        self.jet.blit_me()
-        self._update_bullets()
-        self.enemies.draw(self.screen)
-        self.enemies.update()
-        self._check_hit()
-            
+        if self.stats.game_active:
+            self.jet.blit_me()
+            self._update_bullets()
+            self.enemies.draw(self.screen)
+            self.enemies.update()
+            self._check_hit()
         pygame.display.flip()
         
         
