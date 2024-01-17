@@ -7,7 +7,7 @@ from bullet import Bullet
 from enemy import Enemy
 from random import random
 from game_stats import GameStats
-
+from text import Text
 
 class Shooter:
     """A sidyways shooter game with pygame package."""
@@ -27,7 +27,10 @@ class Shooter:
         self.jet = Jet(self)
         
         # enemy group
-        self.enemies = pygame.sprite.Group()        
+        self.enemies = pygame.sprite.Group()      
+        
+        # end game text
+        self.end_game_text = Text(self)
         
     def run_game(self):
         """Method to run the game."""
@@ -131,6 +134,8 @@ class Shooter:
             self.enemies.draw(self.screen)
             self.enemies.update()
             self._check_hit()
+        else:
+            self.screen.blit(self.end_game_text.text, self.end_game_text.text_rect)
         pygame.display.flip()
         
         
