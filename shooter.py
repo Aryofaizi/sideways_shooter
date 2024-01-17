@@ -102,7 +102,7 @@ class Shooter:
             self.enemies.add(new_enemy)
             
             
-    def check_hit(self):
+    def _check_hit(self):
         """check if jet or any of enemies collide"""
         if pygame.sprite.spritecollideany(self.jet, self.enemies):
             # decrement 
@@ -127,7 +127,7 @@ class Shooter:
         self._update_bullets()
         self.enemies.draw(self.screen)
         self.enemies.update()
-        self.check_hit()
+        self._check_hit()
             
         pygame.display.flip()
         
