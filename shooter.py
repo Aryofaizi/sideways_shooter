@@ -1,9 +1,12 @@
 import pygame, sys
+from time import sleep
+
 from settings import Settings
 from jet import Jet
 from bullet import Bullet
 from enemy import Enemy
 from random import random
+from game_stats import GameStats
 
 
 class Shooter:
@@ -16,6 +19,7 @@ class Shooter:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_width()
         self.settings.screen_height = self.screen.get_height()
+        self.stats = GameStats(self)
         
         # bullet group
         self.bullets = pygame.sprite.Group()
@@ -97,6 +101,24 @@ class Shooter:
             new_enemy = Enemy(self)
             self.enemies.add(new_enemy)
             
+            
+    def check_hit(self):
+        """check if jet or any of enemies collide"""
+        if pygame.sprite.spritecollideany(self.jet, self.enemies):
+            # decrement 
+            self.stats.jet_left -=1
+            
+            # remove remaining bullets and enemies
+            self.enemies.empty()
+            self.bullets.empty()
+            
+            # reposition the jet 
+            self.jet.reposition()
+            
+            # pause 
+            sleep(0.5)
+            
+            
                 
     def _update_screen(self):
         """update and flip screen to the latest frame created."""
@@ -105,6 +127,7 @@ class Shooter:
         self._update_bullets()
         self.enemies.draw(self.screen)
         self.enemies.update()
+        self.check_hit()
             
         pygame.display.flip()
         

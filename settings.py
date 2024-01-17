@@ -15,3 +15,6 @@ class Settings:
         # enemy position
         self.enemy_freqeuncy = 0.001
         self.enemy_speed = 0.5
+        
+        # jet
+        self.jet_limit = 3
