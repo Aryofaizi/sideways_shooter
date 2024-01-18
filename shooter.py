@@ -8,6 +8,7 @@ from enemy import Enemy
 from random import random
 from game_stats import GameStats
 from text import Text
+from button import Button
 
 class Shooter:
     """A sidyways shooter game with pygame package."""
@@ -31,6 +32,9 @@ class Shooter:
         
         # end game text
         self.end_game_text = Text(self)
+        
+        # initialize button
+        self.play_button = Button(self, "Play")
         
     def run_game(self):
         """Method to run the game."""
@@ -136,6 +140,7 @@ class Shooter:
             self._check_hit()
         else:
             self.screen.blit(self.end_game_text.text, self.end_game_text.text_rect)
+            self.play_button.draw_button()
         pygame.display.flip()
         
         

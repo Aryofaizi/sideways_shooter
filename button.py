@@ -21,8 +21,9 @@ class Button:
         
         # make rect and set position
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.center = self.screen_rect.center
+        self.rect.midtop = self.screen_rect.midtop
         
+        self._prep_msg(msg)
         
     def _prep_msg(self, msg):
         """make message image to render."""
