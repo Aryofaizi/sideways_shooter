@@ -53,10 +53,28 @@ class Shooter:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+            elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+                
+    def _check_play_button(self, mouse_pos):
+        """start a new game when the player clicks play."""
+        if self.play_button.rect.collidepoint(mouse_pos):
+            # reset game statistics
+            self.stats.game_reset()
+            self.stats.game_active = True
+            
+            # get rid of any remaining enemies or bullets
+            self.enemies.empty()
+            self.bullets.empty()
+            
+            # reposition jet
+            self.jet.reposition()
+            
                 
     def _check_keydown_events(self, event):
         """check keyboard keydown events."""
