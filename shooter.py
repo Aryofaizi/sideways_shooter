@@ -76,6 +76,10 @@ class Shooter:
             # reposition jet
             self.jet.reposition()
             
+            # hide the mouse cursor.
+            pygame.mouse.set_visible(False)
+            
+            
                 
     def _check_keydown_events(self, event):
         """check keyboard keydown events."""
@@ -145,6 +149,8 @@ class Shooter:
                 sleep(0.5)
             else:
                 self.stats.game_active = False
+                # set the mouse cursor visible again.
+                pygame.mouse.set_visible(True)
             
             
                 
