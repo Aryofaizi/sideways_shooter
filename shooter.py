@@ -90,7 +90,8 @@ class Shooter:
         if event.key == pygame.K_q:
             sys.exit()
         elif event.key == pygame.K_p:
-            self._start_game()
+            if not self.stats.game_active:
+                self._start_game()
         elif event.key == pygame.K_DOWN:
             self.jet.moving_down = True
         elif event.key == pygame.K_UP:
