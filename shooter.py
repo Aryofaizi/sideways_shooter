@@ -65,26 +65,32 @@ class Shooter:
         """start a new game when the player clicks play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            self._start_game()
+            
+            
+    def _start_game(self):
+        """a method to start the game."""
             # reset game statistics
-            self.stats.game_reset()
-            self.stats.game_active = True
+        self.stats.game_reset()
+        self.stats.game_active = True
+        
+        # get rid of any remaining enemies or bullets
+        self.enemies.empty()
+        self.bullets.empty()
+        
+        # reposition jet
+        self.jet.reposition()
+        
+        # hide the mouse cursor.
+        pygame.mouse.set_visible(False)
+        
             
-            # get rid of any remaining enemies or bullets
-            self.enemies.empty()
-            self.bullets.empty()
-            
-            # reposition jet
-            self.jet.reposition()
-            
-            # hide the mouse cursor.
-            pygame.mouse.set_visible(False)
-            
-            
-                
     def _check_keydown_events(self, event):
         """check keyboard keydown events."""
         if event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_p:
+            self._start_game()
         elif event.key == pygame.K_DOWN:
             self.jet.moving_down = True
         elif event.key == pygame.K_UP:
