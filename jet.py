@@ -1,11 +1,12 @@
 import pygame
+from pygame.sprite import Sprite
 
-
-class Jet:
+class Jet(Sprite):
     """a class to represent jet object on the screen."""
     
     def __init__(self, game):
         """initialize jet rect and set screen size."""
+        super().__init__()
         self.settings = game.settings
         self.screen = game.screen
         self.screen_rect = self.screen.get_rect()

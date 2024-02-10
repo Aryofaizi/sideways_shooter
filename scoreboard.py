@@ -1,10 +1,14 @@
 import pygame.font
+from jet import Jet
+
+
 class Scoreboard:
     """scoreboard system to display all game scores on screen."""
     
     
     def __init__(self, game):
         """to initialize scoreboard"""
+        self.game = game
         self.screen = game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = game.settings
@@ -16,6 +20,7 @@ class Scoreboard:
         self.prep_score_image()
         self.prep_high_score_image()
         self.prep_game_level_image()
+        self.prep_jet_left_image()
         
     def prep_score_image(self):
         """prepare score image """
@@ -44,11 +49,21 @@ class Scoreboard:
         self.game_level_image_rect.top = self.score_image_rect.top + 50
         self.game_level_image_rect.right = self.score_image_rect.right
         
+    def prep_jet_left_image(self):
+        """prepare jet left image."""
+        self.game.jets = pygame.sprite.Group()
+        for jet_num in range(self.stats.jet_left):
+            new_jet = Jet(self.game)
+            new_jet.rect.top = self.high_score_image_rect.top
+            new_jet.rect.left = self.screen_rect.left + new_jet.rect.width * jet_num
+            self.game.jets.add(new_jet)
+
+        
+        
     
     def show_score(self):
         """display score images on screen"""
         self.screen.blit(self.score_image, self.score_image_rect)
         self.screen.blit(self.high_score_image, self.high_score_image_rect)
         self.screen.blit(self.game_level_image, self.game_level_image_rect)
-        
-    
+        self.game.jets.draw(self.screen)

@@ -173,6 +173,7 @@ class Shooter:
             if self.stats.jet_left > 0:
                 # decrement 
                 self.stats.jet_left -=1
+                self.sb.prep_jet_left_image()
                 
                 # remove remaining bullets and enemies
                 self.enemies.empty()
@@ -205,6 +206,8 @@ class Shooter:
             self.play_button.draw_button()
             self.stats.game_reset()
             self.sb.prep_score_image()
+            self.sb.prep_game_level_image()
+            self.sb.prep_jet_left_image()
         pygame.display.flip()
         
         
