@@ -121,8 +121,15 @@ class Shooter:
             # check for anamy bullet that have hit enemies.
             # if so get rid of the bullet and the enemy.
             collisions = pygame.sprite.groupcollide(self.bullets, self.enemies, True, True)
+            if collisions:
+                self._increase_score()
             # get rid of old bullets that have disappeard.
             self._delete_old_bullet()
+            
+            
+    def _increase_score(self):
+        """to increase score point if the enemy was shot."""
+        self.stats.score += self.settings.score_point
         
             
     def _check_keyup_events(self, event):

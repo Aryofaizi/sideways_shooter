@@ -15,6 +15,9 @@ class Settings:
         # dynamic settings
         self.initialize_dynamic_settings()
         
+        # score settings
+        self.score_point = 50
+        
         # jet
         self.jet_limit = 3
         

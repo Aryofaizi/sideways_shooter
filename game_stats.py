@@ -13,3 +13,5 @@ class GameStats:
         """resets game statistics."""
         self.jet_left = self.settings.jet_limit
         
+        # score 
+        self.score = 0
