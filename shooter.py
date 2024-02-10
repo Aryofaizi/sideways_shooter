@@ -9,6 +9,8 @@ from random import random
 from game_stats import GameStats
 from text import Text
 from button import Button
+from scoreboard import Scoreboard
+
 
 class Shooter:
     """A sidyways shooter game with pygame package."""
@@ -21,6 +23,7 @@ class Shooter:
         self.settings.screen_width = self.screen.get_width()
         self.settings.screen_height = self.screen.get_height()
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         
         # bullet group
         self.bullets = pygame.sprite.Group()
@@ -124,6 +127,7 @@ class Shooter:
             if collisions:
                 self._increase_score()
                 self._check_score()
+                self.sb.prep_score_image()
             # get rid of old bullets that have disappeard.
             self._delete_old_bullet()
             
@@ -177,6 +181,7 @@ class Shooter:
     def _update_screen(self):
         """update and flip screen to the latest frame created."""
         self.screen.fill(self.settings.bg_color)
+        self.sb.show_score()
         if self.stats.game_active:
             self.jet.blit_me()
             self._update_bullets()
