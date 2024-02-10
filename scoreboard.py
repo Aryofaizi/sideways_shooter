@@ -15,6 +15,7 @@ class Scoreboard:
         
         self.prep_score_image()
         self.prep_high_score_image()
+        self.prep_game_level_image()
         
     def prep_score_image(self):
         """prepare score image """
@@ -33,10 +34,21 @@ class Scoreboard:
         self.high_score_image_rect = self.high_score_image.get_rect()
         self.high_score_image_rect.top = self.score_image_rect.top
         self.high_score_image_rect.centerx = self.screen_rect.centerx
+        
+    def prep_game_level_image(self):
+        """prepare game level image."""
+        game_level_str = str(self.stats.game_level)
+        self.game_level_image = self.font.render(game_level_str, True,
+                                          self.font_color, self.settings.bg_color)
+        self.game_level_image_rect = self.game_level_image.get_rect()
+        self.game_level_image_rect.top = self.score_image_rect.top + 50
+        self.game_level_image_rect.right = self.score_image_rect.right
+        
     
     def show_score(self):
         """display score images on screen"""
         self.screen.blit(self.score_image, self.score_image_rect)
         self.screen.blit(self.high_score_image, self.high_score_image_rect)
+        self.screen.blit(self.game_level_image, self.game_level_image_rect)
         
     

@@ -138,6 +138,8 @@ class Shooter:
         self.stats.enemies_shot_down +=1
         if self.stats.enemies_shot_down % 10 == 0:
             self.settings.increase_speed()
+            self.stats.game_level +=1
+            self.sb.prep_game_level_image()
             
             
     def _check_high_score(self):
