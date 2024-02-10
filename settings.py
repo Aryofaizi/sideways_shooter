@@ -28,3 +28,9 @@ class Settings:
         self.enemy_freqeuncy = 0.001
         self.enemy_speed = 0.5
         
+    def increase_speed(self):
+        """to increase game speed to make game more chellenging"""
+        self.bullet_speed *= self.speedup_scale
+        self.enemy_freqeuncy *= self.speedup_scale
+        self.enemy_speed *= self.speedup_scale
+        
