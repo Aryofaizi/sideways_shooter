@@ -15,3 +15,4 @@ class GameStats:
         
         # score 
         self.score = 0
+        self.enemies_shot_down = 0

@@ -123,9 +123,15 @@ class Shooter:
             collisions = pygame.sprite.groupcollide(self.bullets, self.enemies, True, True)
             if collisions:
                 self._increase_score()
+                self._check_score()
             # get rid of old bullets that have disappeard.
             self._delete_old_bullet()
             
+    def _check_score(self):
+        """check score if the score is equal to """
+        self.stats.enemies_shot_down +=1
+        if self.stats.enemies_shot_down % 10 == 0:
+            self.settings.increase_speed()
             
     def _increase_score(self):
         """to increase score point if the enemy was shot."""
