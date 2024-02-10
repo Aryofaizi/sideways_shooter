@@ -75,6 +75,7 @@ class Shooter:
         """a method to start the game."""
             # reset game statistics
         self.stats.game_reset()
+        self.sb.prep_score_image()
         self.stats.game_active = True
         
         # get rid of any remaining enemies or bullets
@@ -128,6 +129,7 @@ class Shooter:
                 self._increase_score()
                 self._check_score()
                 self.sb.prep_score_image()
+                self._check_high_score()
             # get rid of old bullets that have disappeard.
             self._delete_old_bullet()
             
@@ -136,6 +138,14 @@ class Shooter:
         self.stats.enemies_shot_down +=1
         if self.stats.enemies_shot_down % 10 == 0:
             self.settings.increase_speed()
+            
+            
+    def _check_high_score(self):
+        """check if score is greater than high score, the high score will be updated."""
+        if self.stats.score > self.stats.high_score:
+            self.stats.high_score = self.stats.score
+            self.sb.prep_high_score_image()
+        
             
     def _increase_score(self):
         """to increase score point if the enemy was shot."""
@@ -191,6 +201,8 @@ class Shooter:
         else:
             self.screen.blit(self.end_game_text.text, self.end_game_text.text_rect)
             self.play_button.draw_button()
+            self.stats.game_reset()
+            self.sb.prep_score_image()
         pygame.display.flip()
         
         

@@ -8,6 +8,7 @@ class GameStats:
         
         # game active flag
         self.game_active = False
+        self.high_score = 0
         
     def game_reset(self):
         """resets game statistics."""
